@@ -55,12 +55,14 @@
     /* Mobile Menu Animation */
     .navbar-collapse {
         animation: slideDownMobile 0.3s ease-out;
-        background: white;
+        background: rgba(255, 255, 255, 0.15);
+        -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(15px);
         margin-top: 12px;
         border-radius: 12px;
         padding: 20px 16px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .navbar-nav {
@@ -72,26 +74,26 @@
         border-radius: 8px;
         transition: all var(--transition-normal);
         font-weight: 500;
-        color: var(--text-primary) !important;
+        color: white !important;
     }
 
     .nav-link:active,
     .nav-link:hover {
-        background: var(--light-bg);
-        color: var(--primary-color) !important;
+        background: rgba(255, 255, 255, 0.2);
+        color: white !important;
         transform: translateX(4px);
     }
 
     .dropdown-menu {
-        background: var(--light-bg) !important;
-        border: 1px solid var(--border-color) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 8px !important;
         padding: 8px 0 !important;
         animation: slideDownMobile 0.2s ease-out;
     }
 
     .dropdown-item {
-        color: var(--text-primary) !important;
+        color: white !important;
         padding: 12px 16px !important;
         transition: all var(--transition-fast);
         border-radius: 6px;
@@ -99,8 +101,8 @@
     }
 
     .dropdown-item:hover {
-        background: white !important;
-        color: var(--primary-color) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
         padding-left: 20px !important;
     }
 
