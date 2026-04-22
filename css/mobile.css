@@ -25,9 +25,10 @@
     /* Hamburger Menu */
     .navbar {
         padding: 15px 16px !important;
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     }
 
     .navbar-brand h1 {

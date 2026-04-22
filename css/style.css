@@ -87,6 +87,9 @@
 /*** Topbar Start ***/
 
 /*** Navbar ***/
+.navbar {
+    background-color: transparent !important;
+}
 .navbar-light .navbar-nav .nav-link {
     position: relative;
     margin-right: 25px;
@@ -142,7 +145,10 @@
 @media (max-width: 991.98px) {
     .sticky-top.navbar-light {
         position: relative;
-        background: var(--bs-white);
+        background: rgba(255,255,255,0.92);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition: background-color 0.25s ease, backdrop-filter 0.25s ease;
     }
 
     .navbar.navbar-expand-lg .navbar-toggler {
@@ -187,14 +193,20 @@
         top: 0;
         left: 0;
         border: none;
-        background-color: transparent;
+        background-color: rgba(255, 255, 255, 0.08);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition: background-color 0.25s ease, backdrop-filter 0.25s ease;
         z-index: 999;
     }
     
     .sticky-top.navbar-light {
         position: fixed;
-        background: var(--bs-light);
+        background: rgba(255, 255, 255, 0.94);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
         border: none;
+        transition: background-color 0.25s ease, backdrop-filter 0.25s ease;
     }
 
     .navbar-light .navbar-nav .nav-item::before {
