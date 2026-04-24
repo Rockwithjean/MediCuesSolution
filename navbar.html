@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimal Navbar - Medi Cues Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <style>
+        /* ─── Reset ─────────────────────────────── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            min-height: 200vh; /* For scroll testing */
+            background: #f4f7f6;
+        }
+
+        /* ─── Navbar ─────────────────────────────── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            padding: 0 48px;
+            display: flex;
+            align-items: center;
+            height: 100px;
+            transition: all 0.3s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .navbar.scrolled {
+            background: #ffffff;
+            height: 80px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Brand */
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #19409a; /* Medi Cues Primary */
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        /* Nav links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 500;
+            color: #333;
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #19409a;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #19409a;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .navbar.nav-up {
+            transform: translateY(-100%);
+        }
+
+        /* Hamburger button */
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1100;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #19409a;
+            transition: 0.3s;
+        }
+
+        .menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-btn.open span:nth-child(2) { opacity: 0; }
+        .menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            width: 45px;
+            height: 45px;
+            align-items: center;
+            justify-content: center;
+            background: #19409a;
+            color: #fff;
+            border-radius: 50%;
+            z-index: 99;
+            transition: 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            text-decoration: none;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ─── Side Menu Overlay ──────────────────── */
+        .side-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1050;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .side-overlay.show { opacity: 1; pointer-events: all; }
+
+        /* ─── Side Menu ──────────────────────────── */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            background: #ffffff;
+            z-index: 1100;
+            transform: translateX(100%);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .side-menu.open { transform: translateX(0); }
+
+        .side-header {
+            margin-bottom: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        .side-link {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: 0.3s;
+        }
+
+        .side-link:hover { 
+            color: #19409a;
+            padding-left: 5px;
+        }
+
+        /* ─── Mobile ─────────────────────────────── */
+        @media (max-width: 991px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar" id="navbar">
+        <a href="#" class="brand">Medi Cues</a>
+
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">Services</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="side-overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <aside class="side-menu" id="sideMenu">
+        <div class="side-header">Navigate</div>
+        <a class="side-link" href="#">Home</a>
+        <a class="side-link" href="#">About Us</a>
+        <a class="side-link" href="#">Services</a>
+        <a class="side-link" href="#">News</a>
+        <a class="side-link" href="#">Products</a>
+        <a class="side-link" href="#">Catalog</a>
+        <a class="side-link" href="#">Why Choose Us</a>
+        <a class="side-link" href="#">Our Team</a>
+        <a class="side-link" href="#">Testimonials</a>
+        <a class="side-link" href="#">Contact</a>
+    </aside>
+
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+    <main style="padding: 150px 50px;">
+        <h1>Modern Minimal Navbar</h1>
+        <p>This navbar matches the updated Medi Cues website design.</p>
+        <p style="margin-top: 50vh;">Scroll down to see the navbar background change.</p>
+        <p style="margin-top: 50vh;">Scroll up or down to see the navbar disappear.</p>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const isOpen = document.getElementById('sideMenu').classList.contains('open');
+            isOpen ? closeMenu() : openMenu();
+        }
+
+        function openMenu() {
+            document.getElementById('sideMenu').classList.add('open');
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('menuBtn').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            document.getElementById('sideMenu').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+            document.getElementById('menuBtn').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            let st = window.scrollY;
+            
+            // Background change
+            document.getElementById('navbar').classList.toggle('scrolled', st > 45);
+
+            // Hide on scroll
+            if (st > 100) {
+                document.getElementById('navbar').classList.add('nav-up');
+                document.getElementById('backToTop').classList.add('show');
+            } else {
+                document.getElementById('navbar').classList.remove('nav-up');
+                document.getElementById('backToTop').classList.remove('show');
+            }
+            lastScrollTop = st;
+        });
+
+        document.getElementById('backToTop').onclick = function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+    </script>
+</body>
+
+</html>
