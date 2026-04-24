@@ -1,3 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 /*** Spinner Start ***/
 /*** Spinner ***/
@@ -881,45 +889,137 @@
 }
 /*** testimonial End ***/
 
+/*** Waves Start ***/
+.wave-container {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 120px;
+  overflow: hidden;
+  background: transparent;
+  margin-top: auto; /* Push to bottom */
+}
+
+.wave-svg {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  animation: waveFlow linear infinite;
+}
+
+.wave1 { animation-duration: 6s;  opacity: 1;    top: 0px;  }
+.wave2 { animation-duration: 9s;  opacity: 0.55; top: 10px; animation-direction: reverse; }
+.wave3 { animation-duration: 13s; opacity: 0.30; top: 20px; }
+
+@keyframes waveFlow {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+/*** Waves End ***/
+
 /*** Footer Start ***/
-.footer {
-    background: var(--bs-dark);
+.footer-body {
+  background: #0b1c3d;
+  color: #c8dce8;
+  padding: 2.5rem 3rem 1.5rem;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
-.footer .footer-item a {
-    line-height: 35px;
-    color: var(--bs-body);
-    transition: 0.5s;
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-.footer .footer-item p {
-    line-height: 35px;
+.footer-links-wrap {
+  display: contents;
 }
 
-.footer .footer-item a:hover {
-    letter-spacing: 1px;
-    color: var(--bs-primary);
+@media (max-width: 640px) {
+  .footer-body  { padding: 2rem 1.5rem 1.25rem; }
+  .footer-grid  { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-links-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
 }
 
-.footer .footer-item .footer-btn a,
-.footer .footer-item .footer-btn a i {
-    transition: 0.5s;
+.footer-brand-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.5px;
 }
 
-.footer .footer-item .footer-btn a:hover {
-    background: var(--bs-white);
+.footer-brand-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #7fa8be;
+  margin-bottom: 1.2rem;
+  max-width: 320px;
 }
 
-.footer .footer-item .footer-btn a:hover i {
-    color: var(--bs-primary) !important;
+.social-row { display: flex; gap: 10px; }
+.social-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 0.5px solid #2b4f68;
+  background: #142f42;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  color: #7fa8be;
+  text-decoration: none;
+}
+.social-btn:hover { background: #1e4a63; border-color: #3d6e8a; color: #ffffff; }
+.social-btn i { font-size: 16px; }
+
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+}
+
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; }
+.footer-links a { font-size: 14px; color: #7fa8be; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #ffffff; }
+
+.footer-divider { border: none; border-top: 0.5px solid #1e3d52; margin-bottom: 1.5rem; }
+
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+
+.footer-copy  { font-size: 13px; color: #4d7a93; }
+.footer-badge { font-size: 12px; color: #4d7a93; display: flex; align-items: center; gap: 8px; }
+
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #2eb872;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%       { opacity: 0.5; transform: scale(0.8); }
 }
 /*** Footer End ***/
 
-/*** copyright Start ***/
-.copyright {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background: var(--bs-dark);
-}
-/*** copyright end ***/
 
 
