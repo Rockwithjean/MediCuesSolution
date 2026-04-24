@@ -24,8 +24,13 @@
 @media (max-width: 991.98px) {
     /* Hamburger Menu */
     .navbar {
-        padding: 15px 16px !important;
-        background: var(--light-bg) !important;
+        padding: 12px 16px !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .navbar.scrolled {
+        background: var(--bs-white, #ffffff) !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     }
 
@@ -215,6 +220,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    /* Small CTA buttons override */
+    .btn-cta-small {
+        padding: 6px 16px !important;
+        font-size: 0.82rem !important;
+        min-height: unset !important;
+        border-radius: 50px !important;
+        font-weight: 500;
+        display: inline-flex;
     }
 
     .btn-primary {
