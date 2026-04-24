@@ -922,9 +922,22 @@ body {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
+  align-items: center;
+}
+
+.footer-img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.footer-img:hover {
+  transform: scale(1.05);
 }
 
 .footer-links-wrap {
