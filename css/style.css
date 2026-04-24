@@ -102,7 +102,6 @@ body {
     height: 100px; /* Increased height */
     transition: transform 0.4s ease, background 0.3s ease, height 0.3s ease;
     border: none !important;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .navbar.scrolled {
@@ -134,10 +133,18 @@ body {
     text-decoration: none;
     font-size: 19px; /* Increased font-size */
     font-weight: 500;
-    color: var(--bs-dark);
+    color: #ffffff;
     padding: 10px 0;
     position: relative;
     transition: color 0.3s;
+}
+
+.navbar.scrolled .nav-links a {
+    color: var(--bs-dark);
+}
+
+.navbar.scrolled .nav-links a:hover, .navbar.scrolled .nav-links a.active {
+    color: var(--bs-primary);
 }
 
 .nav-links a::after {
@@ -886,7 +893,8 @@ body {
   height: 120px;
   overflow: hidden;
   background: transparent;
-  margin-top: auto; /* Push to bottom */
+  margin-top: auto; /* Push footer to bottom */
+  line-height: 0;
 }
 
 .wave-svg {
@@ -911,13 +919,15 @@ body {
 .footer-body {
   background: #0b1c3d;
   color: #c8dce8;
-  padding: 2.5rem 3rem 1.5rem;
+  padding: 0rem 3rem 0rem;
   width: 100vw;
   position: relative;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .footer-grid {
