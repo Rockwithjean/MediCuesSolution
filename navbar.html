@@ -48,12 +48,9 @@
 
         /* Brand */
         .brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            color: #19409a; /* Medi Cues Primary */
-            text-decoration: none;
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            background: transparent;
         }
 
         /* Nav links */
@@ -217,7 +214,9 @@
 <body>
 
     <nav class="navbar" id="navbar">
-        <a href="#" class="brand">Medi Cues</a>
+        <div class="brand">
+            <img src="img/newmedicueslogo.png" alt="Medi Cues" style="height: 80px;">
+        </div>
 
         <div class="nav-links">
             <a href="#" class="active">Home</a>
