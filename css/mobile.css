@@ -799,6 +799,40 @@ html {
 }
 
 /* ============================================
+   MOBILE LOGO SIZING
+   ============================================ */
+
+@media (max-width: 991.98px) {
+    .brand img {
+        height: 60px !important;
+    }
+
+    .footer-brand-name img {
+        height: 45px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .brand img {
+        height: 45px !important;
+    }
+
+    .footer-brand-name img {
+        height: 35px !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .brand img {
+        height: 40px !important;
+    }
+
+    .footer-brand-name img {
+        height: 30px !important;
+    }
+}
+
+/* ============================================
    PERFORMANCE OPTIMIZATIONS
    ============================================ */
 
