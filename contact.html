@@ -1,300 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>Contact Us - Medi Cues Medical Solutions | Nairobi, Kenya</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="contact Medi Cues, medical equipment supplier Nairobi, hospital equipment Kenya" name="keywords">
-    <meta
-        content="Get in touch with Medi Cues Medical Solutions. Located at Kilimanjaro City Arcade, Garden Estate Road, Nairobi, Kenya. Call +254 116 263 263."
-        name="description">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/mobile.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Medi Cues Medical Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/mobile.css" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --off: #f7f6f3;
+      --ink: #000000;
+      --ink-60: #000000;
+      --ink-30: #000000;
+      --ink-10: rgba(0, 0, 0, 0.2);
+      --accent: #0b1c3d;
+      --accent-soft: rgba(11, 28, 61, 0.07);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ───────────────────────────── */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── Left panel ───────────────────────── */
+    .left {
+      background: var(--accent);
+      padding: 150px 64px 72px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .left-top {}
+
+    .wordmark {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 80px;
+    }
+
+    .left h1 {
+      font-family: var(--serif);
+      font-size: clamp(42px, 4.5vw, 64px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+
+    .left-sub {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      max-width: 320px;
+    }
+
+    .left-info {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .info-item {}
+
+    .info-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+    }
+
+    .info-value {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      text-decoration: none;
+    }
+
+    .info-value a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .info-value a:hover { color: var(--white); }
+
+    .left-rule {
+      width: 32px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+      margin: 40px 0;
+    }
+
+    /* ── Right panel ──────────────────────── */
+    .right {
+      background: var(--white);
+      padding: 150px 64px 72px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #000000;
+      margin-bottom: 40px;
+    }
+
+    /* Field groups */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 32px;
+    }
+
+    .field {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #000000;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .field:focus-within label { color: var(--accent); }
+
+    .field input,
+    .field select,
+    .field textarea {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 0;
+      outline: none;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 400;
+      color: #000000;
+      padding: 10px 0;
+      transition: border-color 0.2s var(--ease);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: transparent; }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    .field textarea {
+      resize: none;
+      height: 100px;
+      line-height: 1.7;
+    }
+
+    /* select arrow */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px; height: 8px;
+      border-right: 1px solid var(--ink-30);
+      border-bottom: 1px solid var(--ink-30);
+      transform: translateY(-60%) rotate(45deg);
+      pointer-events: none;
+    }
+
+    /* underline shimmer on focus */
+    .field-line {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease);
+    }
+    .field:focus-within .field-line { width: 100%; }
+
+    /* submit */
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .submit-note {
+      font-size: 13px;
+      font-weight: 400;
+      color: #000000;
+    }
+
+    .btn-send {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--accent);
+      border: none;
+      padding: 14px 36px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s var(--ease);
+    }
+
+    .btn-send::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.08);
+      transform: translateX(-100%);
+      transition: transform 0.3s var(--ease);
+    }
+    .btn-send:hover::after { transform: translateX(0); }
+    .btn-send:active { background: #122840; }
+
+    /* success state */
+    .success-msg {
+      display: none;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .success-msg.show { display: block; }
+
+    /* ── Responsive ───────────────────────── */
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+
+      .left {
+        position: relative;
+        height: auto;
+        padding: 110px 32px 48px;
+      }
+
+      .left h1 { font-size: 40px; margin-bottom: 16px; }
+      .left-rule { margin: 32px 0; }
+      .left-info { flex-direction: row; flex-wrap: wrap; gap: 24px 40px; }
+
+      .right { padding: 80px 32px 64px; }
+
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+
+      .submit-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .btn-send { width: 100%; text-align: center; }
+    }
+  </style>
 </head>
-
 <body>
-    <!-- Spinner Start -->
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+
+  <!-- Navbar Start -->
+  <nav class="navbar" id="navbar">
+      <a href="index.html" class="brand">
+          Medi Cues
+      </a>
+
+      <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="service.html">Services</a>
+          <a href="product.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html" class="active">Contact</a>
+      </div>
+
+      <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+      </button>
+  </nav>
+
+  <!-- Side Overlay -->
+  <div class="side-overlay" id="overlay" onclick="closeMenu()"></div>
+
+  <!-- Side Menu -->
+  <aside class="side-menu" id="sideMenu">
+      <div class="side-header">Navigate</div>
+      <a class="side-link" href="index.html">Home</a>
+      <a class="side-link" href="about.html">About Us</a>
+      <a class="side-link" href="service.html">Services</a>
+      <a class="side-link" href="product.html">Products</a>
+      <a class="side-link" href="catalog.html">Catalog</a>
+      <a class="side-link" href="blog.html">News</a>
+      <a class="side-link" href="feature.html">Why Choose Us</a>
+      <a class="side-link" href="contact.html">Contact</a>
+  </aside>
+  <!-- Navbar End -->
+<main class="page">
+
+  <!-- LEFT ─────────────────────────────────── -->
+  <section class="left">
+    <div class="left-top">
+
+
+      <h1>Let's talk<br>medical.</h1>
+      <p class="left-sub">Questions about equipment, pricing, or availability — we're here. Reach out and our team will respond promptly.</p>
+
+      <div class="left-rule"></div>
+
+      <div class="left-info">
+        <div class="info-item">
+          <p class="info-label">Address</p>
+          <p class="info-value">
+            Kilimanjaro City Arcade<br>
+            Garden Estate Road<br>
+            Nairobi, Kenya
+          </p>
         </div>
+        <div class="info-item">
+          <p class="info-label">P.O. Box</p>
+          <p class="info-value">1452-00618, Ruaraka<br>Nairobi, Kenya</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">WhatsApp / Call</p>
+          <p class="info-value">
+            <a href="tel:+254116263263" style="display: inline-block; margin-bottom: 4px;"><i class="fas fa-phone-alt" style="margin-right: 8px; opacity: 0.8;"></i>+254 116 263 263</a><br>
+            <a href="https://wa.me/254116263263?text=Hi, I would like to inquire about your medical equipment." target="_blank"><i class="fab fa-whatsapp" style="margin-right: 8px; opacity: 0.8;"></i>+254 116 263 263</a>
+          </p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Email</p>
+          <p class="info-value"><a href="mailto:medicuesltd@gmail.com">medicuesltd@gmail.com</a></p>
+        </div>
+      </div>
     </div>
-    <!-- Spinner End -->
 
-    <!-- Navbar Start -->
-    <nav class="navbar" id="navbar">
-        <a href="index.html" class="brand">
-            Medi Cues
-        </a>
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="service.html">Services</a>
-            <a href="product.html">Products</a>
-            <a href="about.html">About</a>
-            <a href="contact.html" class="active">Contact</a>
-        </div>
-
-        <!-- Back to Top -->
-        <a href="#" class="back-to-top"><i class="fa fa-arrow-up"></i></a>
-        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
-
-    <!-- Side Overlay -->
-    <div class="side-overlay" id="overlay" onclick="closeMenu()"></div>
-
-    <!-- Side Menu -->
-    <aside class="side-menu" id="sideMenu">
-        <div class="side-header">Navigate</div>
-        <a class="side-link" href="index.html">Home</a>
-        <a class="side-link" href="about.html">About Us</a>
-        <a class="side-link" href="service.html">Services</a>
-        <a class="side-link" href="product.html">Products</a>
-        <a class="side-link" href="catalog.html">Catalog</a>
-        <a class="side-link" href="blog.html">News</a>
-        <a class="side-link" href="feature.html">Why Choose Us</a>
-        <a class="side-link" href="contact.html">Contact</a>
-    </aside>
-    <!-- Navbar End -->
-
-    <!-- Hero Start -->
-    <div class="container-fluid position-relative p-0">
-        <!-- Old nav was here -->
-        <!-- Header Start -->
-        <div class="container-fluid bg-breadcrumb">
-            <div class="container text-center py-5" style="max-width: 900px;">
-                <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Contact Us</h4>
-                <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="catalog.html">Catalog</a></li>
-                    <li class="breadcrumb-item active text-primary">Contact</li>
-                </ol>
-            </div>
-        </div>
-        <!-- Header End -->
+    <!-- Map placeholder or embed -->
+    <div style="margin-top: 48px; opacity: 0.55; border-radius: 2px; overflow: hidden;">
+      <iframe
+        width="100%"
+        height="160"
+        style="display:block; border: none; filter: grayscale(1) invert(1) brightness(0.6);"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8196388485227!2d36.87476177496556!3d-1.2337569986571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f17d09cb90685%3A0xdda2a76e4f0e8b94!2sGarden%20Estate%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
-    <!-- Navbar & Hero End -->
+  </section>
 
-    <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h4 class="modal-title mb-0" id="exampleModalLabel">Search by keyword</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex align-items-center">
-                    <div class="input-group w-75 mx-auto d-flex">
-                        <input type="search" class="form-control p-3"
-                            placeholder="Search medical equipment, consumables..." aria-describedby="search-icon-1">
-                        <span id="search-icon-1" class="input-group-text btn border p-3"><i
-                                class="fa fa-search text-white"></i></span>
-                    </div>
-                </div>
-            </div>
+  <!-- RIGHT ────────────────────────────────── -->
+  <section class="right">
+    <p class="form-eyebrow">Send a message</p>
+
+    <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required />
+          <span class="field-line"></span>
         </div>
-    </div>
-    <!-- Modal Search End -->
-
-    <!-- Contact Start -->
-    <div class="container-fluid contact bg-light py-5">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-6 h-100 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="text-center mx-auto pb-5" style="max-width: 800px;">
-                        <h4 class="text-uppercase text-primary">Get In Touch</h4>
-                        <h1 class="display-3 text-capitalize mb-3">Send Your Message</h1>
-                        <p class="mb-0">Have questions about medical equipment, pricing, or availability? Fill in the
-                            form or reach us directly — we look forward to serving you.</p>
-                    </div>
-                    <form id="contactForm">
-                        <div class="row g-4">
-                            <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control border-0" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control border-0" id="email"
-                                        placeholder="Your Email">
-                                    <label for="email">Your Email</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <input type="tel" class="form-control border-0" id="phone" placeholder="Phone">
-                                    <label for="phone">Your Phone</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <select class="form-control border-0" id="subject">
-                                        <option value="">Select a subject</option>
-                                        <option>Medical Equipment Enquiry</option>
-                                        <option>Medical Consumables</option>
-                                        <option>Equipment Installation</option>
-                                        <option>Clinical Application Training</option>
-                                        <option>Spare Parts Sourcing</option>
-                                        <option>Medical Consultancy</option>
-                                        <option>General Enquiry</option>
-                                    </select>
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control border-0" placeholder="Leave a message here"
-                                        id="message" style="height: 175px"></textarea>
-                                    <label for="message">Your Message</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3 rounded-pill">
-                                    <i class="fas fa-paper-plane me-2"></i>Send Message
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="d-inline-flex rounded bg-white w-100 p-4">
-                                <i class="fas fa-map-marker-alt fa-2x text-secondary me-4"></i>
-                                <div>
-                                    <h4>Physical Address</h4>
-                                    <p class="mb-0">Kilimanjaro City Arcade, Garden Estate Road, Nairobi, Kenya</p>
-                                    <p class="mb-0 text-muted small">P.O. Box 1452-00618, Ruaraka, Nairobi, Kenya</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-xl-6">
-                            <div class="d-inline-flex rounded bg-white w-100 p-4">
-                                <i class="fas fa-envelope fa-2x text-secondary me-4"></i>
-                                <div>
-                                    <h4>Email Us</h4>
-                                    <p class="mb-0"><a href="mailto:medicuesltd@gmail.com">medicuesltd@gmail.com</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-xl-6">
-                            <div class="d-inline-flex rounded bg-white w-100 p-4">
-                                <i class="fa fa-phone-alt fa-2x text-secondary me-4"></i>
-                                <div>
-                                    <h4>Call Us</h4>
-                                    <p class="mb-0"><a href="tel:+254116263263">+254 116 263 263</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="h-100 overflow-hidden">
-                                <iframe class="w-100 rounded" style="height: 340px;"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8196388485227!2d36.87476177496556!3d-1.2337569986571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f17d09cb90685%3A0xdda2a76e4f0e8b94!2sGarden%20Estate%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
-                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+          <span class="field-line"></span>
         </div>
-    </div>
-    <!-- Contact End -->
+      </div>
 
-    <!-- Waves Start -->
-    <div class="wave-container">
-        <svg class="wave-svg wave1" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,60 C180,100 360,20 540,60 C720,100 900,20 1080,60 C1260,100 1380,40 1440,60 L1440,120 L0,120 Z" fill="#0b1c3d"/>
-        </svg>
-        <svg class="wave-svg wave2" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,70 C200,30 400,90 600,60 C800,30 1000,90 1200,55 C1320,35 1400,75 1440,65 L1440,120 L0,120 Z" fill="#0b1c3d"/>
-        </svg>
-        <svg class="wave-svg wave3" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,50 C240,90 480,10 720,55 C960,95 1200,25 1440,50 L1440,120 L0,120 Z" fill="#0b1c3d"/>
-        </svg>
-    </div>
-    <!-- Waves End -->
-
-    <!-- Footer Start -->
-    <footer class="footer-body">
-        <div class="footer-grid">
-            <!-- Brand -->
-            <div>
-                <p class="footer-brand-name">Medi Cues</p>
-                <p class="footer-brand-desc">Trusted supplier of medical equipment, accessories, consumables, and clinical services across East Africa.</p>
-                <div class="social-row">
-                    <a href="#" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-btn" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-
-            <!-- Links -->
-            <div class="footer-links-wrap">
-                <div>
-                    <p class="footer-col-title">Services</p>
-                    <ul class="footer-links">
-                        <li><a href="service.html">Medical Equipment</a></li>
-                        <li><a href="service.html">Hospital Furniture</a></li>
-                        <li><a href="service.html">Clinical Training</a></li>
-                        <li><a href="service.html">Maintenance</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <p class="footer-col-title">Company</p>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="product.html">Our Products</a></li>
-                        <li><a href="blog.html">News & Updates</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" />
+          <span class="field-line"></span>
         </div>
-
-        <hr class="footer-divider">
-
-        <div class="footer-bottom">
-            <span class="footer-copy">© 2024 Medi Cues Solutions Limited. All rights reserved.</span>
-            <div class="footer-badge">
-                <div class="pulse-dot"></div>
-                All systems operational
-            </div>
+        <div class="field">
+          <label for="subject">Subject</label>
+          <div class="select-wrap">
+            <select id="subject" name="subject">
+              <option value="" disabled selected></option>
+              <option>Medical Equipment Enquiry</option>
+              <option>Medical Consumables</option>
+              <option>Equipment Installation</option>
+              <option>Clinical Application Training</option>
+              <option>Spare Parts Sourcing</option>
+              <option>Medical Consultancy</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <span class="field-line"></span>
         </div>
-    </footer>
-    <!-- Footer End -->
+      </div>
 
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+        <span class="field-line"></span>
+      </div>
 
-    <!-- Back to Top -->
+      <div class="submit-row">
+        <p class="success-msg" id="successMsg">Message received. We'll be in touch shortly.</p>
+        <span class="submit-note" id="submitNote">We typically respond within 24 hours.</span>
+        <button type="submit" class="btn-send">Send Message</button>
+      </div>
 
+    </form>
+  </section>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+</main>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const note = document.getElementById('submitNote');
+    const success = document.getElementById('successMsg');
+    const btn = form.querySelector('.btn-send');
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    // Use FormData to collect form values
+    const formData = new FormData(form);
+
+    // Send data to FormSubmit using AJAX
+    fetch('https://formsubmit.co/ajax/medicuesltd@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        form.reset();
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+        note.style.display = 'none';
+        success.classList.add('show');
+        setTimeout(() => {
+          success.classList.remove('show');
+          note.style.display = '';
+        }, 5000);
+    })
+    .catch(error => {
+        console.error(error);
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+        alert("There was an error sending your message. Please try again or email us directly at medicuesltd@gmail.com.");
+    });
+  }
+</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
-
 </html>
