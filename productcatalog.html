@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Products & Catalog — Medi Cues</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink:       #0d1117;
+            --ink-mid:   #4a5568;
+            --ink-light: #8a96a3;
+            --rule:      #e8ecf0;
+            --surface:   #f5f7f9;
+            --white:     #ffffff;
+            --accent:    #0055cc;
+            --accent-lt: #e8f0fb;
+            --radius:    10px;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── NAVBAR STYLES ─────────────────────────────── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            padding: 0 48px;
+            display: flex;
+            align-items: center;
+            height: 100px;
+            transition: all 0.3s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .navbar.scrolled {
+            background: #ffffff;
+            height: 80px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            background: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 500;
+            color: #333;
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #19409a;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #19409a;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .navbar.nav-up {
+            transform: translateY(-100%);
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1100;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #19409a;
+            transition: 0.3s;
+        }
+
+        .menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-btn.open span:nth-child(2) { opacity: 0; }
+        .menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .back-to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            width: 45px;
+            height: 45px;
+            align-items: center;
+            justify-content: center;
+            background: #19409a;
+            color: #fff;
+            border-radius: 50%;
+            z-index: 99;
+            transition: 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            text-decoration: none;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1050;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .side-overlay.show { opacity: 1; pointer-events: all; }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            background: #ffffff;
+            z-index: 1100;
+            transform: translateX(100%);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .side-menu.open { transform: translateX(0); }
+
+        .side-header {
+            margin-bottom: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        .side-link {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: 0.3s;
+        }
+
+        .side-link:hover { 
+            color: #19409a;
+            padding-left: 5px;
+        }
+
+        /* ─── PAGE WRAPPER FOR NAVBAR ─────────────────────────────── */
+        .page-wrapper {
+            padding-top: 100px;
+        }
+
+        .page-wrapper.navbar-scrolled {
+            padding-top: 80px;
+        }
+
+        /* ── Search + Filter bar ── */
+        .toolbar {
+            padding: 28px 32px 0;
+            display: flex; gap: 16px; align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-wrap {
+            position: relative; flex: 1; min-width: 220px;
+        }
+        .search-wrap i {
+            position: absolute; left: 14px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--ink-light); font-size: 0.85rem;
+        }
+        .search-wrap input {
+            width: 100%; padding: 10px 14px 10px 38px;
+            border: 1px solid var(--rule);
+            border-radius: var(--radius);
+            font-size: 0.875rem; font-family: 'DM Sans', sans-serif;
+            color: var(--ink); background: var(--surface);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-wrap input:focus {
+            outline: none; border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0,85,204,0.1);
+            background: white;
+        }
+        .filter-pills {
+            display: flex; gap: 8px; flex-wrap: wrap;
+        }
+        .pill {
+            padding: 8px 16px;
+            border: 1px solid var(--rule);
+            border-radius: 99px;
+            font-size: 0.8rem; font-weight: 500;
+            color: var(--ink-mid); background: white;
+            cursor: pointer; transition: all 0.2s;
+            white-space: nowrap; font-family: 'DM Sans', sans-serif;
+        }
+        .pill:hover { border-color: var(--accent); color: var(--accent); }
+        .pill.active {
+            background: var(--accent); color: white;
+            border-color: var(--accent);
+        }
+
+        /* ── Section tabs ── */
+        .section-tabs {
+            padding: 0 32px;
+            display: flex;
+            border-bottom: 1px solid var(--rule);
+            margin-top: 24px;
+        }
+        .tab-btn {
+            padding: 14px 24px;
+            font-size: 0.875rem; font-weight: 500;
+            color: var(--ink-mid); background: none; border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer; margin-bottom: -1px;
+            transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+        }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .tab-btn:hover { color: var(--ink); }
+
+        /* ── Main content wrapper ── */
+        .content-area {
+            padding: 40px 32px 60px;
+        }
+
+        /* ── CATALOG GRID ── */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .catalog-card {
+            border: 1px solid var(--rule);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: white;
+            display: flex; flex-direction: column;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+        }
+        .catalog-card:hover {
+            border-color: #b3c9f0;
+            box-shadow: 0 8px 32px rgba(0,85,204,0.08);
+            transform: translateY(-3px);
+        }
+
+        .card-img {
+            height: 180px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .card-img i { font-size: 2.4rem; color: white; opacity: 0.9; z-index: 1; }
+        .card-img .badge-new {
+            position: absolute; top: 12px; right: 12px;
+            background: white; color: var(--accent);
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; padding: 4px 10px;
+            border-radius: 99px; z-index: 2;
+        }
+
+        .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .card-cat {
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .card-title {
+            font-size: 0.97rem; font-weight: 600; color: var(--ink);
+            margin-bottom: 8px; line-height: 1.4;
+        }
+        .card-desc {
+            font-size: 0.83rem; color: var(--ink-mid);
+            line-height: 1.65; flex: 1; margin-bottom: 14px;
+        }
+        .card-tags {
+            display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;
+        }
+        .tag {
+            font-size: 0.72rem; padding: 3px 9px;
+            border: 1px solid var(--rule);
+            border-radius: 4px; color: var(--ink-mid);
+        }
+        .card-actions {
+            display: flex; gap: 8px;
+            padding-top: 14px; border-top: 1px solid var(--rule);
+        }
+        .btn-detail {
+            flex: 1; padding: 9px 12px;
+            border: 1px solid var(--rule); border-radius: 8px;
+            font-size: 0.82rem; font-weight: 500;
+            color: var(--ink); background: var(--surface);
+            cursor: pointer; transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif; text-align: center;
+        }
+        .btn-detail:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
+        .btn-wa {
+            flex: 1; padding: 9px 12px;
+            border: none; border-radius: 8px;
+            font-size: 0.82rem; font-weight: 600;
+            color: white; background: #25d366;
+            cursor: pointer; transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif; text-align: center;
+            text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-wa:hover { background: #1db954; color: white; text-decoration: none; }
+
+        /* ── Card gradients ── */
+        .g1 { background: linear-gradient(140deg, #1a3a6b 0%, #2563a8 100%); }
+        .g2 { background: linear-gradient(140deg, #1a4d5c 0%, #0e8599 100%); }
+        .g3 { background: linear-gradient(140deg, #4a2060 0%, #8b3fa8 100%); }
+        .g4 { background: linear-gradient(140deg, #0f4d30 0%, #18895a 100%); }
+        .g5 { background: linear-gradient(140deg, #5c2a0a 0%, #b35a1f 100%); }
+        .g6 { background: linear-gradient(140deg, #1a2d5c 0%, #3d5aa8 100%); }
+
+        /* ── Tab panels ── */
+        .products-section { display: none; }
+        .products-section.active { display: block; }
+        .catalog-section { display: none; }
+        .catalog-section.active { display: block; }
+
+        /* ── Products section ── */
+        .cat-group { margin-bottom: 44px; }
+        .cat-heading {
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 20px; padding-bottom: 14px;
+            border-bottom: 1px solid var(--rule);
+        }
+        .cat-heading-icon {
+            width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--accent-lt); color: var(--accent);
+            border-radius: 8px; font-size: 0.9rem; flex-shrink: 0;
+        }
+        .cat-heading h2 {
+            font-size: 0.97rem; font-weight: 600; color: var(--ink);
+        }
+        .cat-count { margin-left: auto; font-size: 0.78rem; color: var(--ink-light); }
+
+        .prod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .prod-card {
+            border: 1px solid var(--rule); border-radius: var(--radius);
+            overflow: hidden; background: white;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .prod-card:hover {
+            border-color: #b3c9f0;
+            box-shadow: 0 4px 20px rgba(0,85,204,0.08);
+            transform: translateY(-2px);
+        }
+        .prod-card-top {
+            padding: 26px 20px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .prod-card-top i { font-size: 1.8rem; color: white; }
+        .prod-card-body { padding: 16px 18px; background: var(--surface); }
+        .prod-badge {
+            display: inline-block; font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 3px 10px; border-radius: 99px; margin-bottom: 7px;
+            background: var(--accent-lt); color: var(--accent);
+        }
+        .prod-title { font-size: 0.875rem; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+        .prod-desc { font-size: 0.78rem; color: var(--ink-mid); line-height: 1.6; margin-bottom: 12px; }
+        .prod-card-body .btn-wa { width: 100%; padding: 9px; border-radius: 7px; font-size: 0.8rem; }
+
+        /* ── CTA ── */
+        .cta-box {
+            border: 1px solid var(--rule); border-radius: 14px;
+            padding: 36px 40px;
+            display: flex; align-items: center; justify-content: space-between; gap: 28px;
+            background: var(--surface); margin-top: 40px;
+        }
+        .cta-box h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem; color: var(--ink); margin-bottom: 6px;
+        }
+        .cta-box p { font-size: 0.85rem; color: var(--ink-mid); }
+        .cta-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+        .btn-primary-sm {
+            padding: 10px 20px; border-radius: 8px;
+            font-size: 0.82rem; font-weight: 600;
+            background: var(--accent); color: white; border: none;
+            cursor: pointer; text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s; white-space: nowrap;
+        }
+        .btn-primary-sm:hover { background: #0044aa; color: white; text-decoration: none; }
+        .btn-outline-sm {
+            padding: 10px 20px; border-radius: 8px;
+            font-size: 0.82rem; font-weight: 600;
+            background: white; color: var(--ink);
+            border: 1px solid var(--rule); cursor: pointer; text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            display: flex; align-items: center; gap: 6px; white-space: nowrap;
+            transition: border-color 0.2s;
+        }
+        .btn-outline-sm:hover { border-color: var(--ink); color: var(--ink); text-decoration: none; }
+
+        /* ── Empty state ── */
+        .empty { text-align: center; padding: 64px 20px; color: var(--ink-light); }
+        .empty i { font-size: 2rem; margin-bottom: 12px; display: block; }
+        .empty p { font-size: 0.875rem; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .toolbar { padding: 20px 20px 0; }
+            .section-tabs { padding: 0 20px; }
+            .content-area { padding: 28px 20px 48px; }
+            .cta-box { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+            .catalog-grid { grid-template-columns: 1fr; }
+            .prod-grid { grid-template-columns: 1fr 1fr; }
+
+            .nav-links {
+                display: none;
+            }
+
+            .navbar {
+                padding: 0 20px;
+            }
+        }
+        @media (max-width: 400px) {
+            .prod-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ─── FOOTER STYLES ─────────────────────────────── */
+        .wave-container {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+        }
+        .wave-svg {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            animation: waveFlow linear infinite;
+        }
+        .wave1 { animation-duration: 6s;  opacity: 1;    top: 0px;  }
+        .wave2 { animation-duration: 9s;  opacity: 0.55; top: 10px; animation-direction: reverse; }
+        .wave3 { animation-duration: 13s; opacity: 0.30; top: 20px; }
+        @keyframes waveFlow {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .footer-body {
+            background: #0e2a3b;
+            color: #c8dce8;
+            padding: 2.5rem 3rem 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links-wrap {
+            display: contents;
+        }
+
+        @media (max-width: 640px) {
+            .footer-body  { padding: 2rem 1.5rem 1.25rem; }
+            .footer-grid  { grid-template-columns: 1fr; gap: 1.5rem; }
+            .footer-links-wrap {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .footer-brand-name {
+            font-size: 20px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+        .footer-brand-desc {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #7fa8be;
+            margin-bottom: 1.2rem;
+            max-width: 240px;
+            display: none;
+        }
+
+        .social-row { display: flex; gap: 10px; }
+        .social-btn {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            border: 0.5px solid #2b4f68;
+            background: #142f42;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .social-btn:hover { background: #1e4a63; border-color: #3d6e8a; }
+        .social-btn svg { width: 13px; height: 13px; fill: #7fa8be; }
+
+        .footer-col-title {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .footer-links a { font-size: 13px; color: #7fa8be; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #cde6f2; }
+
+        .footer-divider { border: none; border-top: 0.5px solid #1e3d52; margin-bottom: 1.2rem; }
+
+        .footer-bottom {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 0.5rem;
+        }
+        .footer-copy { font-size: 12px; color: #4d7a93; }
+        .footer-badge { font-size: 11px; color: #4d7a93; display: flex; align-items: center; gap: 6px; }
+
+        .pulse-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #2eb872;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1;   transform: scale(1);   }
+            50%       { opacity: 0.5; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="brand">
+        <img src="img/newmedicueslogo.png" alt="Medi Cues" style="height: 80px;">
+    </div>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="service.html">Services</a>
+        <a href="productcatalog.html" class="active">Catalog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
+
+<div class="side-overlay" id="overlay" onclick="closeMenu()"></div>
+
+<aside class="side-menu" id="sideMenu">
+    <div class="side-header">Navigate</div>
+    <a class="side-link" href="index.html">Home</a>
+    <a class="side-link" href="about.html">About Us</a>
+    <a class="side-link" href="service.html">Services</a>
+    <a class="side-link" href="feature.html">Features</a>
+    <a class="side-link" href="productcatalog.html">Catalog</a>
+    <a class="side-link" href="blog.html">Blog</a>
+    <a class="side-link" href="contact.html">Contact</a>
+</aside>
+
+<a href="#" class="back-to-top" id="backToTop">↑</a>
+
+<!-- PAGE WRAPPER -->
+<div class="page-wrapper" id="pageWrapper">
+
+<!-- Search + Filter -->
+<div class="toolbar">
+    <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search equipment, consumables, accessories…">
+    </div>
+    <div class="filter-pills" id="filterPills">
+        <button class="pill active" data-filter="all">All</button>
+        <button class="pill" data-filter="cardiology">Cardiology</button>
+        <button class="pill" data-filter="diagnostic">Diagnostic</button>
+        <button class="pill" data-filter="icu">ICU & Critical Care</button>
+        <button class="pill" data-filter="surgical">Surgical</button>
+        <button class="pill" data-filter="maternal">Maternal & Neonatal</button>
+        <button class="pill" data-filter="laboratory">Laboratory</button>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="section-tabs">
+    <button class="tab-btn active" data-tab="catalog">Equipment Catalog</button>
+    <button class="tab-btn" data-tab="products">All Products</button>
+</div>
+
+<!-- Content -->
+<div class="content-area">
+
+    <!-- CATALOG TAB -->
+    <div class="catalog-section active" id="catalog-tab">
+        <div class="catalog-grid" id="catalogGrid">
+
+            <div class="catalog-item" data-category="cardiology" data-name="Portable ECG Machine">
+                <div class="catalog-card">
+                    <div class="card-img g1">
+                        <span class="badge-new">New</span>
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-cat">Cardiology</div>
+                        <div class="card-title">Portable ECG Machine</div>
+                        <p class="card-desc">12-lead digital ECG with wireless connectivity and cloud storage for real-time patient monitoring.</p>
+                        <div class="card-tags"><span class="tag">Portable</span><span class="tag">12-Lead</span><span class="tag">WiFi Enabled</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Portable ECG Machine')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Portable%20ECG%20Machine" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="cardiology" data-name="Holter Monitor">
+                <div class="catalog-card">
+                    <div class="card-img g1"><i class="fas fa-chart-line"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">Cardiology</div>
+                        <div class="card-title">Holter Monitor</div>
+                        <p class="card-desc">Portable 24-hour ambulatory ECG monitoring device for comprehensive cardiac rhythm analysis and arrhythmia detection.</p>
+                        <div class="card-tags"><span class="tag">24-Hour</span><span class="tag">Portable</span><span class="tag">Wireless Sync</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Holter Monitor')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Holter%20Monitor" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="diagnostic" data-name="Ultrasound System">
+                <div class="catalog-card">
+                    <div class="card-img g2"><i class="fas fa-radiation-alt"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">Diagnostic</div>
+                        <div class="card-title">Ultrasound System</div>
+                        <p class="card-desc">Advanced 4D ultrasound imaging system with doppler capabilities for comprehensive diagnostic imaging across all departments.</p>
+                        <div class="card-tags"><span class="tag">4D Imaging</span><span class="tag">Doppler</span><span class="tag">Colour Mode</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Ultrasound System')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Ultrasound%20System" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="diagnostic" data-name="Digital X-Ray System">
+                <div class="catalog-card">
+                    <div class="card-img g2"><i class="fas fa-camera"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">Diagnostic</div>
+                        <div class="card-title">Digital X-Ray System</div>
+                        <p class="card-desc">Modern DR system with low radiation exposure and instant image acquisition for rapid diagnostics.</p>
+                        <div class="card-tags"><span class="tag">Digital</span><span class="tag">Low Dose</span><span class="tag">PACS Ready</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Digital X-Ray System')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Digital%20X-Ray%20System" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="icu" data-name="Multiparameter Patient Monitor">
+                <div class="catalog-card">
+                    <div class="card-img g6"><i class="fas fa-procedures"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">ICU & Critical Care</div>
+                        <div class="card-title">Multiparameter Patient Monitor</div>
+                        <p class="card-desc">Real-time monitoring of ECG, SpO2, NIBP, Temperature and Respiration with 24-hour trending and alarm management.</p>
+                        <div class="card-tags"><span class="tag">5-Parameter</span><span class="tag">24-hr Trend</span><span class="tag">Smart Alarms</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Multiparameter Patient Monitor')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Multiparameter%20Patient%20Monitor" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="icu" data-name="Ventilator System">
+                <div class="catalog-card">
+                    <div class="card-img g6"><i class="fas fa-fan"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">ICU & Critical Care</div>
+                        <div class="card-title">Ventilator System</div>
+                        <p class="card-desc">Advanced mechanical ventilator with multiple ventilation modes and non-invasive ventilation support for critical patients.</p>
+                        <div class="card-tags"><span class="tag">Multi-Mode</span><span class="tag">Non-Invasive</span><span class="tag">Smart Alarms</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Ventilator System')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Ventilator%20System" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="surgical" data-name="Surgical Light System">
+                <div class="catalog-card">
+                    <div class="card-img g3">
+                        <span class="badge-new">New</span>
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-cat">Surgical</div>
+                        <div class="card-title">Surgical Light System</div>
+                        <p class="card-desc">High-intensity LED surgical lights with shadow-free illumination and adjustable colour temperature for optimal visibility.</p>
+                        <div class="card-tags"><span class="tag">LED</span><span class="tag">Adjustable</span><span class="tag">Shadow-Free</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Surgical Light System')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Surgical%20Light%20System" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="maternal" data-name="Fetal Monitor">
+                <div class="catalog-card">
+                    <div class="card-img g4"><i class="fas fa-baby-carriage"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">Maternal & Neonatal</div>
+                        <div class="card-title">Fetal Monitor</div>
+                        <p class="card-desc">Non-invasive fetal heart rate and contraction monitoring with intuitive display and comprehensive data storage.</p>
+                        <div class="card-tags"><span class="tag">Non-Invasive</span><span class="tag">Wireless</span><span class="tag">Data Storage</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Fetal Monitor')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Fetal%20Monitor" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-item" data-category="laboratory" data-name="Automated Blood Analyzer">
+                <div class="catalog-card">
+                    <div class="card-img g5"><i class="fas fa-flask"></i></div>
+                    <div class="card-body">
+                        <div class="card-cat">Laboratory</div>
+                        <div class="card-title">Automated Blood Analyzer</div>
+                        <p class="card-desc">High-throughput hematology analyzer processing multiple samples with accurate CBC results in minutes.</p>
+                        <div class="card-tags"><span class="tag">Automated</span><span class="tag">High-Throughput</span><span class="tag">Accurate</span></div>
+                        <div class="card-actions">
+                            <button class="btn-detail" onclick="viewDetails('Automated Blood Analyzer')">Details</button>
+                            <a href="https://wa.me/254116263263?text=I'm%20interested%20in%20the%20Automated%20Blood%20Analyzer" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Enquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="empty" id="emptyState" style="display:none;">
+            <i class="fas fa-search"></i>
+            <p>No equipment matches your search. Try different keywords or clear the filter.</p>
+        </div>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div class="products-section" id="products-tab">
+
+        <div class="cat-group">
+            <div class="cat-heading">
+                <div class="cat-heading-icon"><i class="fas fa-x-ray"></i></div>
+                <h2>Medical Equipment</h2>
+                <span class="cat-count">4 categories</span>
+            </div>
+            <div class="prod-grid">
+                <div class="prod-card">
+                    <div class="prod-card-top g1"><i class="fas fa-heartbeat"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Cardiology</span>
+                        <div class="prod-title">Cardiology Equipment</div>
+                        <p class="prod-desc">ECG machines, Holter monitors, stress test systems and cardiology diagnostic tools.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Cardiology Equipment" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g2"><i class="fas fa-radiation-alt"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Radiology</span>
+                        <div class="prod-title">Radiology Equipment</div>
+                        <p class="prod-desc">Ultrasound machines, X-Ray systems, and advanced radiology imaging solutions.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Radiology Equipment" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g6"><i class="fas fa-procedures"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">ICU</span>
+                        <div class="prod-title">ICU Equipment</div>
+                        <p class="prod-desc">Patient monitors, ventilators, infusion pumps and critical care equipment for ICU units.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in ICU Equipment" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g4"><i class="fas fa-baby"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Mother & Child</span>
+                        <div class="prod-title">Mother & Child Equipment</div>
+                        <p class="prod-desc">Fetal monitors, incubators, phototherapy units and neonatal care equipment.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Mother and Child Equipment" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cat-group">
+            <div class="cat-heading">
+                <div class="cat-heading-icon" style="background:#e3f5ee;color:#00875a;"><i class="fas fa-prescription-bottle-alt"></i></div>
+                <h2>Medical Consumables</h2>
+                <span class="cat-count">4 categories</span>
+            </div>
+            <div class="prod-grid">
+                <div class="prod-card">
+                    <div class="prod-card-top" style="background:linear-gradient(140deg,#1a4060,#2a6ea8);"><i class="fas fa-scroll"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Paper</span>
+                        <div class="prod-title">Thermal Papers</div>
+                        <p class="prod-desc">High-quality thermal ECG and ultrasound paper compatible with major equipment brands.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Thermal Papers" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top" style="background:linear-gradient(140deg,#1a4060,#2a6ea8);"><i class="fas fa-fill-drip"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Gel</span>
+                        <div class="prod-title">Ultrasound Gel</div>
+                        <p class="prod-desc">Medical-grade ultrasound gel for optimal acoustic coupling during imaging procedures.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Ultrasound Gel" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top" style="background:linear-gradient(140deg,#1a4060,#2a6ea8);"><i class="fas fa-bolt"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Electrodes</span>
+                        <div class="prod-title">ECG Electrodes</div>
+                        <p class="prod-desc">Disposable and reusable ECG electrodes for accurate cardiac monitoring.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in ECG Electrodes" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top" style="background:linear-gradient(140deg,#1a4060,#2a6ea8);"><i class="fas fa-hand-paper"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Protection</span>
+                        <div class="prod-title">Gloves & Med Spread</div>
+                        <p class="prod-desc">Medical gloves, Med Spread and protective consumables for clinical environments.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Gloves and Med Spread" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cat-group">
+            <div class="cat-heading">
+                <div class="cat-heading-icon" style="background:#ede8fb;color:#6b21a8;"><i class="fas fa-satellite-dish"></i></div>
+                <h2>Transducers</h2>
+                <span class="cat-count">3 categories</span>
+            </div>
+            <div class="prod-grid">
+                <div class="prod-card">
+                    <div class="prod-card-top g3"><i class="fas fa-satellite-dish"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Imaging</span>
+                        <div class="prod-title">Ultrasound Probes</div>
+                        <p class="prod-desc">Linear, convex, phased array and endocavitary probes for various diagnostic applications.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Ultrasound Probes" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g3"><i class="fas fa-wave-square"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Cardiology</span>
+                        <div class="prod-title">Cardiac Transducers</div>
+                        <p class="prod-desc">Specialised transducers for echocardiography and stress echo applications.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Cardiac Transducers" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g3"><i class="fas fa-search-plus"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Spare Parts</span>
+                        <div class="prod-title">Replacement Probes</div>
+                        <p class="prod-desc">New and refurbished replacement probes and transducers for all major equipment brands.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Replacement Probes" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cat-group">
+            <div class="cat-heading">
+                <div class="cat-heading-icon" style="background:#fef3e2;color:#b45309;"><i class="fas fa-plug"></i></div>
+                <h2>Accessories</h2>
+                <span class="cat-count">4 categories</span>
+            </div>
+            <div class="prod-grid">
+                <div class="prod-card">
+                    <div class="prod-card-top g5"><i class="fas fa-print"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Printers</span>
+                        <div class="prod-title">Medical Printers</div>
+                        <p class="prod-desc">Thermal and inkjet printers compatible with ECG, ultrasound and other medical equipment.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Medical Printers" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g5"><i class="fas fa-plug"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Cables</span>
+                        <div class="prod-title">ECG & Patient Cables</div>
+                        <p class="prod-desc">High-quality ECG lead cables, patient cables and connectors for all major monitor brands.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in ECG and Patient Cables" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g5"><i class="fas fa-bed"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Furniture</span>
+                        <div class="prod-title">Hospital Furniture</div>
+                        <p class="prod-desc">Hospital beds, trolleys, examination couches and clinical furniture for your facility.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Hospital Furniture" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-card-top g5"><i class="fas fa-cogs"></i></div>
+                    <div class="prod-card-body">
+                        <span class="prod-badge">Spare Parts</span>
+                        <div class="prod-title">Equipment Spare Parts</div>
+                        <p class="prod-desc">New and used spare parts for a wide range of medical equipment brands and models.</p>
+                        <a href="https://wa.me/254116263263?text=Hi, I am interested in Equipment Spare Parts" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+        <div>
+            <h3>Can't find what you need?</h3>
+            <p>We source a wide range of medical equipment, spare parts and consumables. Contact us with your specific requirements.</p>
+        </div>
+        <div class="cta-actions">
+            <a href="contact.html" class="btn-primary-sm">Request a Quote</a>
+            <a href="tel:+254116263263" class="btn-outline-sm"><i class="fas fa-phone"></i> +254 116 263 263</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const tab = btn.dataset.tab;
+            document.getElementById('catalog-tab').classList.toggle('active', tab === 'catalog');
+            document.getElementById('products-tab').classList.toggle('active', tab === 'products');
+            document.getElementById('filterPills').style.display = tab === 'catalog' ? 'flex' : 'none';
+        });
+    });
+
+    const pills = document.querySelectorAll('.pill');
+    const items = document.querySelectorAll('.catalog-item');
+    const searchInput = document.getElementById('searchInput');
+    const emptyState = document.getElementById('emptyState');
+
+    pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            pills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            applyFilters();
+        });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+
+    function applyFilters() {
+        const filter = document.querySelector('.pill.active').dataset.filter;
+        const search = searchInput.value.toLowerCase().trim();
+        let visible = 0;
+        items.forEach(item => {
+            const catMatch = filter === 'all' || item.dataset.category === filter;
+            const searchMatch = !search || item.innerText.toLowerCase().includes(search);
+            const show = catMatch && searchMatch;
+            item.style.display = show ? 'block' : 'none';
+            if (show) visible++;
+        });
+        emptyState.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    function viewDetails(name) {
+        alert('More details for: ' + name + '\n\nPlease contact us via WhatsApp or call +254 116 263 263 for full specifications.');
+    }
+
+    // NAVBAR FUNCTIONALITY
+    function toggleMenu() {
+        const isOpen = document.getElementById('sideMenu').classList.contains('open');
+        isOpen ? closeMenu() : openMenu();
+    }
+
+    function openMenu() {
+        document.getElementById('sideMenu').classList.add('open');
+        document.getElementById('overlay').classList.add('show');
+        document.getElementById('menuBtn').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        document.getElementById('sideMenu').classList.remove('open');
+        document.getElementById('overlay').classList.remove('show');
+        document.getElementById('menuBtn').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+        let st = window.scrollY;
+        
+        // Background change
+        document.getElementById('navbar').classList.toggle('scrolled', st > 45);
+
+        // Hide on scroll
+        if (st > 100) {
+            document.getElementById('navbar').classList.add('nav-up');
+            document.getElementById('backToTop').classList.add('show');
+        } else {
+            document.getElementById('navbar').classList.remove('nav-up');
+            document.getElementById('backToTop').classList.remove('show');
+        }
+        lastScrollTop = st;
+    });
+
+    document.getElementById('backToTop').onclick = function(e) {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+</script>
+
+</div><!-- End page-wrapper -->
+
+<!-- WAVES BEFORE FOOTER -->
+<div class="wave-container">
+    <svg class="wave-svg wave1" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,60 C180,100 360,20 540,60 C720,100 900,20 1080,60 C1260,100 1380,40 1440,60 L1440,120 L0,120 Z" fill="#0e2a3b"/>
+    </svg>
+    <svg class="wave-svg wave2" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,70 C200,30 400,90 600,60 C800,30 1000,90 1200,55 C1320,35 1400,75 1440,65 L1440,120 L0,120 Z" fill="#0e2a3b"/>
+    </svg>
+    <svg class="wave-svg wave3" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,50 C240,90 480,10 720,55 C960,95 1200,25 1440,50 L1440,120 L0,120 Z" fill="#0e2a3b"/>
+    </svg>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-body">
+    <div class="footer-grid">
+
+        <!-- Brand -->
+        <div>
+            <p class="footer-brand-name"><img src="img/newmedicueslogo.png" alt="Medi Cues" style="height: 60px; background: transparent;"></p>
+            <div class="social-row">
+                <div class="social-btn" title="X (Twitter)">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </div>
+                <div class="social-btn" title="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </div>
+                <div class="social-btn" title="GitHub">
+                    <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product + Company side-by-side on mobile -->
+        <div class="footer-links-wrap">
+
+            <div>
+                <p class="footer-col-title">Product</p>
+                <ul class="footer-links">
+                    <li><a href="feature.html">Features</a></li>
+                    <li><a href="productcatalog.html">Catalog</a></li>
+                    <li><a href="blog.html">News</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="footer-col-title">Company</p>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press kit</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-col-title">Get in Touch</p>
+                <ul class="footer-links">
+                    <li><a href="tel:+254116263263"><i class="fas fa-phone-alt" style="margin-right: 8px;"></i>Call: +254 116 263 263</a></li>
+                    <li><a href="https://wa.me/254116263263?text=Hi, I would like to inquire about your medical equipment." target="_blank"><i class="fab fa-whatsapp" style="margin-right: 8px;"></i>WhatsApp Us</a></li>
+                    <li><a href="mailto:medicuesltd@gmail.com"><i class="fas fa-envelope" style="margin-right: 8px;"></i>medicuesltd@gmail.com</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Medi Cues. All rights reserved.</span>
+        <div class="footer-badge">
+            <div class="pulse-dot"></div>
+            All systems operational
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
