@@ -319,7 +319,7 @@
       <div class="nav-links">
           <a href="index.html">Home</a>
           <a href="service.html">Services</a>
-          <a href="productcatalog.html">Products</a>
+          <a href="productcatalog.html">Catalog</a>
           <a href="about.html">About</a>
           <a href="contact.html" class="active">Contact</a>
       </div>
@@ -340,7 +340,7 @@
       <a class="side-link" href="index.html">Home</a>
       <a class="side-link" href="about.html">About Us</a>
       <a class="side-link" href="service.html">Services</a>
-      <a class="side-link" href="productcatalog.html">Products</a>
+      <a class="side-link" href="productcatalog.html">Catalog</a>
       <a class="side-link" href="feature.html">Why Choose Us</a>
       <a class="side-link" href="contact.html">Contact</a>
   </aside>
@@ -497,6 +497,14 @@
         alert("There was an error sending your message. Please try again or email us directly at medicuesltd@gmail.com.");
     });
   }
+
+  // Make navbar always show dark text on contact.html since background is white
+  document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+      navbar.classList.add('scrolled');
+    }
+  });
 </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
