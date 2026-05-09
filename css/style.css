@@ -910,8 +910,11 @@ body {
 /*** Waves Start ***/
 .wave-container {
   position: relative;
-  width: 100%;
-  margin: 0;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   padding: 0;
   height: 120px;
   overflow: hidden;
@@ -942,9 +945,13 @@ body {
 .footer-body {
   background: #f4f6f9;
   color: #2d3748;
-  padding: 3rem 0 1.5rem; /* Removed side padding to fit the screen edges */
-  width: 100%;
-  margin: 0;
+  padding: 3rem 0 1.5rem;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .footer-grid {
@@ -952,7 +959,7 @@ body {
   grid-template-columns: 2fr 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
-  padding: 0 5%; /* Added padding here instead to keep content safe but allow background to fill */
+  padding: 0 5%;
 }
 
 .footer-links-wrap {
