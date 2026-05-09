@@ -397,8 +397,8 @@
    ============================================ */
 
 @media (max-width: 991.98px) {
-    .footer {
-        padding: 40px 16px !important;
+    .footer-body {
+        padding: 40px 0 !important;
     }
 
     .footer-item {

@@ -910,11 +910,9 @@ body {
 /*** Waves Start ***/
 .wave-container {
   position: relative;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   height: 120px;
   overflow: hidden;
   background: transparent;
@@ -944,10 +942,9 @@ body {
 .footer-body {
   background: #f4f6f9;
   color: #2d3748;
-  padding: 3rem 3rem 1.5rem; /* Balanced padding: top, sides, bottom */
+  padding: 3rem 0 1.5rem; /* Removed side padding to fit the screen edges */
   width: 100%;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .footer-grid {
@@ -955,6 +952,7 @@ body {
   grid-template-columns: 2fr 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
+  padding: 0 5%; /* Added padding here instead to keep content safe but allow background to fill */
 }
 
 .footer-links-wrap {
@@ -1030,11 +1028,12 @@ body {
 }
 .footer-links a:hover { color: #0b1c3d; }
 
-.footer-divider { border: none; border-top: 0.5px solid #cbd5e0; margin-bottom: 1.5rem; }
+.footer-divider { border: none; border-top: 0.5px solid #cbd5e0; margin-bottom: 1.5rem; margin-left: 5%; margin-right: 5%; }
 
 .footer-bottom {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 0.5rem;
+  padding: 0 5%;
 }
 
 .footer-copy  { font-size: 13px; color: #718096; }
