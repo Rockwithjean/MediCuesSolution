@@ -858,3 +858,22 @@ html {
         display: block;
     }
 }
+
+/* ============================================
+   MOBILE FOOTER LINK ALIGNMENT
+   ============================================ */
+@media (max-width: 640px) {
+    .footer-links a {
+        align-items: flex-start !important; /* Better for wrapping text */
+        padding: 4px 0;
+    }
+    .footer-links a i {
+        margin-top: 3px; /* Align icon with first line of text */
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-links-wrap {
+        grid-template-columns: 1fr !important; /* Single column for very small screens */
+    }
+}

@@ -275,15 +275,41 @@
     .btn-send:hover::after { transform: translateX(0); }
     .btn-send:active { background: #122840; }
 
-    /* success state */
-    .success-msg {
+    /* success / error state */
+    .success-msg,
+    .error-msg {
       display: none;
       font-size: 13px;
       font-weight: 300;
-      color: var(--accent);
       letter-spacing: 0.02em;
     }
-    .success-msg.show { display: block; }
+    .success-msg { color: #1a7a4a; }
+    .error-msg   { color: #c0392b; }
+    .success-msg.show,
+    .error-msg.show { display: block; }
+
+    /* field-level error labels */
+    .field-error {
+      display: none;
+      font-size: 11px;
+      color: #c0392b;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Navbar override for white background ───────────── */
+    /* Contact page has white BG so nav links must always be dark */
+    .navbar .nav-links a {
+      color: #1a1a2e !important;
+    }
+    .navbar .nav-links a:hover,
+    .navbar .nav-links a.active {
+      color: #19409a !important;
+    }
+    .navbar {
+      background: #ffffff !important;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1) !important;
+    }
 
     /* ── Responsive ───────────────────────── */
     @media (max-width: 900px) {
@@ -402,16 +428,25 @@
 
     <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
 
+      <!-- FormSubmit hidden configuration fields -->
+      <input type="hidden" name="_subject" value="New Enquiry — Medi Cues Solution Website" />
+      <input type="hidden" name="_next" value="https://medicuessolution.com/contact.html?sent=1" />
+      <input type="hidden" name="_captcha" value="false" />
+      <!-- Honeypot spam filter -->
+      <input type="text" name="_honey" style="display:none" />
+
       <div class="field-row">
-        <div class="field">
+        <div class="field" id="field-name">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" autocomplete="name" required />
           <span class="field-line"></span>
+          <span class="field-error" id="err-name">Please enter your name.</span>
         </div>
-        <div class="field">
+        <div class="field" id="field-email">
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" autocomplete="email" required />
           <span class="field-line"></span>
+          <span class="field-error" id="err-email">Please enter a valid email.</span>
         </div>
       </div>
 
@@ -439,16 +474,21 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-message">
         <label for="message">Message</label>
         <textarea id="message" name="message" required></textarea>
         <span class="field-line"></span>
+        <span class="field-error" id="err-message">Please enter your message.</span>
       </div>
 
       <div class="submit-row">
-        <p class="success-msg" id="successMsg">Message received. We'll be in touch shortly.</p>
-        <span class="submit-note" id="submitNote">We typically respond within 24 hours.</span>
-        <button type="submit" class="btn-send">Send Message</button>
+        <p class="success-msg" id="successMsg">✓ Message sent! We'll be in touch within 24 hours.</p>
+        <p class="error-msg" id="errorMsg">Failed to send. <a href="mailto:medicuesltd@gmail.com">Email us directly.</a></p>
+        <span class="submit-note" id="submitNote">
+          We typically respond within 24 hours.<br>
+          <small>Or email: <a href="mailto:medicuesltd@gmail.com" style="color:#0b1c3d;">medicuesltd@gmail.com</a></small>
+        </span>
+        <button type="submit" class="btn-send" id="btnSend">Send Message</button>
       </div>
 
     </form>
@@ -458,53 +498,94 @@
 
 
 <script>
+  // ── Client-side validation helpers ──────────────────────
+  function showError(fieldId, errId, show) {
+    const field = document.getElementById(fieldId);
+    const err   = document.getElementById(errId);
+    if (!field || !err) return;
+    if (show) {
+      field.style.borderBottomColor = '#c0392b';
+      err.style.display = 'block';
+    } else {
+      field.style.borderBottomColor = '';
+      err.style.display = 'none';
+    }
+  }
+
+  function validateForm() {
+    const name    = document.getElementById('name').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    let valid = true;
+
+    showError('name',    'err-name',    !name);
+    showError('email',   'err-email',   !emailOk);
+    showError('message', 'err-message', !message);
+
+    if (!name || !emailOk || !message) valid = false;
+    return valid;
+  }
+
+  // ── Form submission ─────────────────────────────────────
   function handleSubmit(e) {
     e.preventDefault();
-    const form = document.getElementById('contactForm');
-    const note = document.getElementById('submitNote');
+    if (!validateForm()) return;
+
+    const form    = document.getElementById('contactForm');
+    const note    = document.getElementById('submitNote');
     const success = document.getElementById('successMsg');
-    const btn = form.querySelector('.btn-send');
+    const errMsg  = document.getElementById('errorMsg');
+    const btn     = document.getElementById('btnSend');
 
     btn.textContent = 'Sending…';
-    btn.disabled = true;
+    btn.disabled    = true;
+    success.classList.remove('show');
+    errMsg.classList.remove('show');
 
-    // Use FormData to collect form values
     const formData = new FormData(form);
 
-    // Send data to FormSubmit using AJAX
     fetch('https://formsubmit.co/ajax/medicuesltd@gmail.com', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
+      method: 'POST',
+      body:   formData,
+      headers: { 'Accept': 'application/json' }
     })
-    .then(response => response.json())
-    .then(data => {
-        form.reset();
-        btn.textContent = 'Send Message';
-        btn.disabled = false;
-        note.style.display = 'none';
-        success.classList.add('show');
-        setTimeout(() => {
-          success.classList.remove('show');
-          note.style.display = '';
-        }, 5000);
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.json();
     })
-    .catch(error => {
-        console.error(error);
-        btn.textContent = 'Send Message';
-        btn.disabled = false;
-        alert("There was an error sending your message. Please try again or email us directly at medicuesltd@gmail.com.");
+    .then(() => {
+      form.reset();
+      btn.textContent = 'Send Message';
+      btn.disabled    = false;
+      note.style.display = 'none';
+      success.classList.add('show');
+      setTimeout(() => {
+        success.classList.remove('show');
+        note.style.display = '';
+      }, 6000);
+    })
+    .catch(() => {
+      btn.textContent = 'Send Message';
+      btn.disabled    = false;
+      errMsg.classList.add('show');
+      setTimeout(() => errMsg.classList.remove('show'), 8000);
     });
   }
 
-  // Make navbar always show dark text on contact.html since background is white
-  document.addEventListener('DOMContentLoaded', function() {
+  // Clear field errors on input
+  ['name','email','message'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => {
+      const errMap = { name:'err-name', email:'err-email', message:'err-message' };
+      showError(id, errMap[id], false);
+    });
+  });
+
+  // ── Navbar: always dark on white contact page ───────────
+  document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('navbar');
-    if (navbar) {
-      navbar.classList.add('scrolled');
-    }
+    if (navbar) navbar.classList.add('scrolled');
   });
 </script>
 

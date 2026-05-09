@@ -39,11 +39,12 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: transparent;
+            background: #ffffff;
             padding: 0 48px;
             display: flex;
             align-items: center;
-            height: 100px;
+            height: 80px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             font-family: 'Open Sans', sans-serif;
         }
@@ -71,7 +72,7 @@
             text-decoration: none;
             font-size: 19px;
             font-weight: 500;
-            color: #333;
+            color: #1a1a2e;
             padding: 10px 0;
             position: relative;
             transition: color 0.3s;
@@ -206,7 +207,7 @@
 
         /* ─── PAGE WRAPPER FOR NAVBAR ─────────────────────────────── */
         .page-wrapper {
-            padding-top: 100px;
+            padding-top: 80px;
         }
 
         .page-wrapper.navbar-scrolled {
@@ -592,7 +593,21 @@
             margin-bottom: 1rem;
         }
         .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .footer-links a { font-size: 13px; color: #4a5568; text-decoration: none; transition: color 0.2s; }
+        .footer-links a { 
+            font-size: 13px; 
+            color: #4a5568; 
+            text-decoration: none; 
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            line-height: 1.4;
+        }
+        .footer-links a i {
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            flex-shrink: 0;
+        }
         .footer-links a:hover { color: #0b1c3d; }
 
         .footer-divider { border: none; border-top: 0.5px solid #cbd5e0; margin-bottom: 1.2rem; }
