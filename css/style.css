@@ -315,6 +315,7 @@ body {
 .carousel .carousel-inner .carousel-item {
     position: relative;
     height: 100vh;
+    transition: opacity 1.2s ease-in-out !important; /* Smooth cross-fade */
 }
 
 .carousel .carousel-inner .carousel-item img {
@@ -1085,6 +1086,17 @@ body {
     color: var(--bs-white);
 }
 /*** Back to Top End ***/
+
+/* Mobile Carousel Smoothing */
+@media (max-width: 991.98px) {
+    .carousel-fade .carousel-item {
+        transition: opacity 1.2s ease-in-out !important;
+    }
+    
+    .carousel {
+        background: transparent !important;
+    }
+}
 
 
 
