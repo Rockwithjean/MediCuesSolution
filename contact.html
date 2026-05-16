@@ -420,7 +420,11 @@
         </div>
         <div class="info-item">
           <p class="info-label">Email</p>
-          <p class="info-value"><a href="mailto:medicuesltd@gmail.com">medicuesltd@gmail.com</a></p>
+          <p class="info-value">
+            <a href="mailto:info@medicues.co.ke">info@medicues.co.ke</a><br>
+            <a href="mailto:sales@medicues.co.ke">sales@medicues.co.ke</a><br>
+            <a href="mailto:medicuesltd@gmail.com">medicuesltd@gmail.com</a>
+          </p>
         </div>
       </div>
     </div>
@@ -441,11 +445,11 @@
   <section class="right">
     <p class="form-eyebrow">Send a message</p>
 
-    <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+    <form id="contactForm" action="https://formsubmit.co/info@medicues.co.ke" method="POST">
 
       <!-- FormSubmit hidden configuration fields -->
       <input type="hidden" name="_subject" value="New Enquiry — Medi Cues Solution Website" />
-      <input type="hidden" name="_next" value="https://medicuessolution.com/contact.html?sent=1" />
+      <input type="hidden" name="_next" value="https://medicues.co.ke/contact.html?sent=1" />
       <input type="hidden" name="_captcha" value="false" />
       <!-- Honeypot spam filter -->
       <input type="text" name="_honey" style="display:none" />
@@ -498,10 +502,10 @@
 
       <div class="submit-row">
         <p class="success-msg" id="successMsg">✓ Message sent! We'll be in touch within 24 hours.</p>
-        <p class="error-msg" id="errorMsg">Failed to send. <a href="mailto:medicuesltd@gmail.com">Email us directly.</a></p>
+        <p class="error-msg" id="errorMsg">Failed to send. <a href="mailto:info@medicues.co.ke">Email us directly.</a></p>
         <span class="submit-note" id="submitNote">
           We typically respond within 24 hours.<br>
-          <small>Or email: <a href="mailto:medicuesltd@gmail.com" style="color:#0b1c3d;">medicuesltd@gmail.com</a></small>
+          <small>Or email: <a href="mailto:info@medicues.co.ke" style="color:#0b1c3d;">info@medicues.co.ke</a></small>
         </span>
         <button type="submit" class="btn-send" id="btnSend">Send Message</button>
       </div>
@@ -564,6 +568,8 @@
                     <ul class="footer-links">
                         <li><a href="tel:+254116263263"><i class="fas fa-phone-alt" style="margin-right: 8px;"></i>Call: +254 116 263 263</a></li>
                         <li><a href="https://wa.me/254116263263?text=Hi, I would like to inquire about your medical equipment." target="_blank"><i class="fab fa-whatsapp" style="margin-right: 8px;"></i>WhatsApp Us +254116263263</a></li>
+                        <li><a href="mailto:info@medicues.co.ke"><i class="fas fa-envelope" style="margin-right: 8px;"></i>info@medicues.co.ke</a></li>
+                        <li><a href="mailto:sales@medicues.co.ke"><i class="fas fa-envelope" style="margin-right: 8px;"></i>sales@medicues.co.ke</a></li>
                         <li><a href="mailto:medicuesltd@gmail.com"><i class="fas fa-envelope" style="margin-right: 8px;"></i>medicuesltd@gmail.com</a></li>
                     </ul>
                 </div>
@@ -614,50 +620,16 @@
   }
 
   // ── Form submission ─────────────────────────────────────
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    const form    = document.getElementById('contactForm');
-    const note    = document.getElementById('submitNote');
-    const success = document.getElementById('successMsg');
-    const errMsg  = document.getElementById('errorMsg');
-    const btn     = document.getElementById('btnSend');
-
-    btn.textContent = 'Sending…';
-    btn.disabled    = true;
-    success.classList.remove('show');
-    errMsg.classList.remove('show');
-
-    const formData = new FormData(form);
-
-    fetch('https://formsubmit.co/ajax/medicuesltd@gmail.com', {
-      method: 'POST',
-      body:   formData,
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(res => {
-      if (!res.ok) throw new Error('Network response was not ok');
-      return res.json();
-    })
-    .then(() => {
-      form.reset();
-      btn.textContent = 'Send Message';
-      btn.disabled    = false;
-      note.style.display = 'none';
-      success.classList.add('show');
-      setTimeout(() => {
-        success.classList.remove('show');
-        note.style.display = '';
-      }, 6000);
-    })
-    .catch(() => {
-      btn.textContent = 'Send Message';
-      btn.disabled    = false;
-      errMsg.classList.add('show');
-      setTimeout(() => errMsg.classList.remove('show'), 8000);
-    });
-  }
+  // ── Show success message on redirect ───────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('sent') === '1') {
+      const success = document.getElementById('successMsg');
+      const note    = document.getElementById('submitNote');
+      if (success) success.classList.add('show');
+      if (note) note.style.display = 'none';
+    }
+  });
 
   // Clear field errors on input
   ['name','email','message'].forEach(id => {

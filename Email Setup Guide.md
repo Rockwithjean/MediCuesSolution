@@ -1,13 +1,13 @@
 # 📧 Medi Cues Solution — Contact Form Email Guide
 
-**For:** The person managing enquiries at `medicuesltd@gmail.com`
+**For:** The person managing enquiries at `info@medicues.co.ke`
 **Website:** Medi Cues Solution
 
 ---
 
 ## What Is This?
 
-The Medi Cues Solution website has a **Contact Form** on the Contact page. When a visitor fills out and submits the form, their message is automatically sent to the company email: **medicuesltd@gmail.com**.
+The Medi Cues Solution website has a **Contact Form** on the Contact page. When a visitor fills out and submits the form, their message is automatically sent to the company email: **info@medicues.co.ke**.
 
 You do not need any special software or dashboard. Everything arrives directly in Gmail.
 
@@ -19,7 +19,7 @@ Before the form can deliver emails, the Gmail account needs to be verified **onc
 
 Here is what to do:
 
-1. The first time someone submits the contact form, **FormSubmit** (the service that powers the form) will send an automatic email to `medicuesltd@gmail.com`.
+1. The first time someone submits the contact form, **FormSubmit** (the service that powers the form) will send an automatic email to `info@medicues.co.ke`.
 2. Open that email — the subject will be something like **"Confirm your FormSubmit"**.
 3. Click the **"Confirm your email address"** button or link inside the email.
 4. You will see a confirmation page. That means setup is complete.
@@ -32,7 +32,7 @@ Here is what to do:
 
 When a visitor submits the contact form on the website:
 
-1. You will receive an email at **medicuesltd@gmail.com**
+1. You will receive an email at **info@medicues.co.ke**
 2. The email will contain:
    - The visitor's **Full Name**
    - Their **Email Address**
@@ -85,7 +85,7 @@ If website form submissions stop arriving in your inbox, try the following:
 | Item | Detail |
 |------|--------|
 | Website contact page | `/contact.html` |
-| Email to check | `medicuesltd@gmail.com` |
+| Email to check | `info@medicues.co.ke` |
 | Email subject to look for | "New Enquiry — Medi Cues Solution Website" |
 | Service used | FormSubmit (formsubmit.co) |
 | Activation required | Yes — one time only |
